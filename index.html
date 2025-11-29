@@ -6,59 +6,132 @@
 <title>Главная — X5 Tech</title>
 <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="bg-white min-h-screen flex flex-col font-sans">
+
 <!-- Header -->
-<header class="p-4 flex items-center justify-between">
-<div class="flex items-center gap-2">
-<img src="x5logo.png" alt="X5 Tech" class="h-8 w-auto object-contain" />
-</div>
-<div class="w-7 h-7 bg-green-600 rounded-full"></div>
+<header class="p-4 bg-white shadow flex items-center justify-between">
+  <div class="flex items-center space-x-2">
+    <img src="x5logo.png"
+         alt="logo" class="h-6">
+  </div>
+
+  <div class="flex items-center space-x-2">
+    <span class="text-sm font-medium">Студент</span>
+    <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+
+    <div class="px-3 py-1 bg-gray-100 rounded-full text-sm font-medium">
+      120 баллов
+    </div>
+  </div>
 </header>
 
 
+
+<!-- Main -->
 <main class="flex-1 p-4 pb-24">
-<h1 class="text-2xl font-semibold mb-4">Доступные стенды</h1>
+  <h1 class="text-2xl font-semibold mb-4">Доступные стенды</h1>
 
+  <!-- Cards -->
+  <div class="space-y-4">
 
-<!-- Card -->
-<div class="space-y-4">
-<div class="border-2 border-green-600 rounded-xl p-4 space-y-3">
-<h2 class="text-lg font-semibold">Название стенда</h2>
-<p class="text-gray-700 text-sm">Краткое описание стенда</p>
+    <!-- Card 1 -->
+    <div class="border-2 border-green-600 rounded-xl p-4 space-y-3">
+      <h2 class="text-lg font-semibold">Стенд данных</h2>
+      <p class="text-gray-700 text-sm">Познакомьтесь с крупными данными и инструментами X5 Tech.</p>
 
+      <button class="w-full border rounded-md py-1 text-sm"
+        onclick="openStandPopup('Стенд данных', 'Познакомьтесь с крупными данными, витринами, пайплайнами и аналитикой внутри X5 Tech.')">
+        Подробнее
+      </button>
 
-<button class="w-full border rounded-md py-1 text-sm">Подробнее</button>
-<button class="w-full bg-green-600 text-white py-2 rounded-md text-sm">Пройти квиз</button>
-</div>
+      <a href="quiz.html">
+        <button class="w-full bg-green-600 text-white py-2 rounded-md text-sm mt-2">
+          Пройти квиз
+        </button>
+      </a>
+    </div>
 
+    <!-- Card 2 -->
+    <div class="border-2 border-green-600 rounded-xl p-4 space-y-3">
+      <h2 class="text-lg font-semibold">AI & ML Стенд</h2>
+      <p class="text-gray-700 text-sm">Как X5 использует машинное обучение и нейросети.</p>
 
-<div class="border-2 border-green-600 rounded-xl p-4 space-y-3">
-<h2 class="text-lg font-semibold">Название стенда</h2>
-<p class="text-gray-700 text-sm">Краткое описание стенда</p>
+      <button class="w-full border rounded-md py-1 text-sm"
+        onclick="openStandPopup('AI & ML Стенд', 'Узнайте о применении ML-моделей, прогнозировании спроса и компьютерном зрении в X5 Tech.')">
+        Подробнее
+      </button>
 
+      <a href="quiz.html">
+        <button class="w-full bg-green-600 text-white py-2 rounded-md text-sm mt-2">
+          Пройти квиз
+        </button>
+      </a>
+    </div>
 
-<button class="w-full border rounded-md py-1 text-sm">Подробнее</button>
-<button class="w-full bg-green-600 text-white py-2 rounded-md text-sm">Пройти квиз</button>
-</div>
+    <!-- Card 3 -->
+    <div class="border-2 border-green-600 rounded-xl p-4 space-y-3">
+      <h2 class="text-lg font-semibold">Стенд логистики</h2>
+      <p class="text-gray-700 text-sm">Технологии и автоматизация цепочек поставок.</p>
 
+      <button class="w-full border rounded-md py-1 text-sm"
+        onclick="openStandPopup('Стенд логистики', 'Познакомьтесь с системами, которые управляют складом, доставкой и цепочками поставок.')">
+        Подробнее
+      </button>
 
-<div class="border-2 border-green-600 rounded-xl p-4 space-y-3">
-<h2 class="text-lg font-semibold">Название стенда</h2>
-<p class="text-gray-700 text-sm">Краткое описание стенда</p>
+      <a href="quiz.html">
+        <button class="w-full bg-green-600 text-white py-2 rounded-md text-sm mt-2">
+          Пройти квиз
+        </button>
+      </a>
+    </div>
 
-
-<button class="w-full border rounded-md py-1 text-sm">Подробнее</button>
-<button class="w-full bg-green-600 text-white py-2 rounded-md text-sm">Пройти квиз</button>
-</div>
-</div>
+  </div>
 </main>
 
 
 <!-- Footer -->
 <footer class="fixed bottom-0 left-0 right-0 bg-green-600 text-white p-4 flex justify-around text-sm">
-<a href="index.html" class="font-medium">Главная</a>
-<a href="merch.html" class="font-medium">Каталог</a>
-<a href="info.html" class="font-medium">Информация</a>
+  <a href="index.html" class="font-medium">Главная</a>
+  <a href="merch.html" class="font-medium">Каталог</a>
+  <a href="info.html" class="font-medium">Информация</a>
 </footer>
+
+
+<!-- POPUP: Подробнее -->
+<!-- Overlay -->
+<div id="standPopup" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center p-4">
+  
+  <!-- Popup window -->
+  <div class="bg-white rounded-xl shadow-xl p-5 w-full max-w-sm">
+    <h2 id="standTitle" class="text-xl font-bold mb-2"></h2>
+    <p id="standDescription" class="text-gray-700 mb-4"></p>
+
+    <button onclick="closeStandPopup()"
+            class="w-full bg-gray-200 py-2 rounded-md text-sm font-medium">
+      Закрыть
+    </button>
+  </div>
+
+</div>
+
+<!-- JS -->
+<script>
+  function openStandPopup(title, description) {
+    document.getElementById('standTitle').textContent = title;
+    document.getElementById('standDescription').textContent = description;
+
+    const popup = document.getElementById('standPopup');
+    popup.classList.remove('hidden');
+    popup.classList.add('flex');   // flex позволяет центрова
+  }
+
+  function closeStandPopup() {
+    const popup = document.getElementById('standPopup');
+    popup.classList.add('hidden');
+    popup.classList.remove('flex');
+  }
+</script>
+
 </body>
 </html>
