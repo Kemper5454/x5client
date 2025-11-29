@@ -12,21 +12,19 @@
 <!-- Header -->
 <header class="p-4 bg-white shadow flex items-center justify-between">
   <div class="flex items-center space-x-2">
-    <img src="x5logo.png"
-         alt="logo" class="h-6">
+    <img src="x5logo.png" alt="logo" class="h-6">
   </div>
 
   <div class="flex items-center space-x-2">
     <span class="text-sm font-medium">Студент</span>
     <span class="w-2 h-2 bg-green-500 rounded-full"></span>
 
-    <div class="px-3 py-1 bg-gray-100 rounded-full text-sm font-medium">
-      120 баллов
+    <!-- Баллы -->
+    <div class="px-3 py-1 bg-gray-100 rounded-full text-sm font-medium" id="pointsDisplay">
+      0 баллов
     </div>
   </div>
 </header>
-
-
 
 <!-- Main -->
 <main class="flex-1 p-4 pb-24">
@@ -89,7 +87,6 @@
   </div>
 </main>
 
-
 <!-- Footer -->
 <footer class="fixed bottom-0 left-0 right-0 bg-green-600 text-white p-4 flex justify-around text-sm">
   <a href="index.html" class="font-medium">Главная</a>
@@ -97,39 +94,49 @@
   <a href="info.html" class="font-medium">Информация</a>
 </footer>
 
-
 <!-- POPUP: Подробнее -->
-<!-- Overlay -->
 <div id="standPopup" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center p-4">
-  
-  <!-- Popup window -->
   <div class="bg-white rounded-xl shadow-xl p-5 w-full max-w-sm">
     <h2 id="standTitle" class="text-xl font-bold mb-2"></h2>
     <p id="standDescription" class="text-gray-700 mb-4"></p>
-
     <button onclick="closeStandPopup()"
             class="w-full bg-gray-200 py-2 rounded-md text-sm font-medium">
       Закрыть
     </button>
   </div>
-
 </div>
 
 <!-- JS -->
 <script>
+  // ------------------ POPUP ------------------
   function openStandPopup(title, description) {
     document.getElementById('standTitle').textContent = title;
     document.getElementById('standDescription').textContent = description;
 
     const popup = document.getElementById('standPopup');
     popup.classList.remove('hidden');
-    popup.classList.add('flex');   // flex позволяет центрова
+    popup.classList.add('flex');
   }
 
   function closeStandPopup() {
     const popup = document.getElementById('standPopup');
     popup.classList.add('hidden');
     popup.classList.remove('flex');
+  }
+
+  // ------------------ БАЛЛЫ ------------------
+  // Получаем текущие баллы из localStorage или ставим 0
+  let points = Number(localStorage.getItem('x5Points')) || 0;
+
+  // Обновляем отображение
+  const pointsDisplay = document.getElementById('pointsDisplay');
+  pointsDisplay.textContent = points + " баллов";
+
+  // Функция для добавления баллов (будет использоваться на quiz.html)
+  function addPoints(amount) {
+    points += amount;
+    localStorage.setItem('x5Points', points);
+    pointsDisplay.textContent = points + " баллов";
   }
 </script>
 

@@ -12,23 +12,20 @@
 <!-- HEADER -->
 <header class="p-4 bg-white shadow flex items-center justify-between">
   <div class="flex items-center space-x-2">
-    <img src="x5logo.png"
-         alt="logo" class="h-6">
+    <img src="x5logo.png" alt="logo" class="h-6">
   </div>
 
   <div class="flex items-center space-x-2">
     <span class="text-sm font-medium">Студент</span>
     <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-    <div class="px-3 py-1 bg-gray-100 rounded-full text-sm font-medium">
-      120 баллов
+    <div class="px-3 py-1 bg-gray-100 rounded-full text-sm font-medium" id="pointsDisplay">
+      0 баллов
     </div>
   </div>
 </header>
 
-
 <!-- MAIN -->
 <main class="flex-1 p-4 pb-24">
-
   <h1 class="text-2xl font-semibold mb-4">Квиз</h1>
 
   <!-- PROGRESS BAR -->
@@ -44,9 +41,7 @@
           disabled>
     Следующий
   </button>
-
 </main>
-
 
 <!-- FOOTER -->
 <footer class="fixed bottom-0 left-0 right-0 bg-green-600 text-white p-4 flex justify-around text-sm">
@@ -54,7 +49,6 @@
   <a href="merch.html" class="font-medium">Каталог</a>
   <a href="info.html" class="font-medium">Информация</a>
 </footer>
-
 
 <!-- RESULT POPUP -->
 <div id="resultPopup" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center p-4">
@@ -68,9 +62,19 @@
   </div>
 </div>
 
-
-<!-- JS -->
 <script>
+// ------------------ БАЛЛЫ ------------------
+let points = Number(localStorage.getItem('x5Points')) || 0;
+const pointsDisplay = document.getElementById('pointsDisplay');
+pointsDisplay.textContent = points + " баллов";
+
+function addPoints(amount) {
+  points += amount;
+  localStorage.setItem('x5Points', points);
+  pointsDisplay.textContent = points + " баллов";
+}
+
+// ------------------ КВИЗ ------------------
 const quizData = [
   { question: "Что такое ML?", options: ["Машинное обучение", "Механическое обучение", "Медиум логики", "Математическая линейка"], answer: 0 },
   { question: "Какая база данных используется для аналитики X5 Tech?", options: ["PostgreSQL", "MongoDB", "SQLite", "Oracle"], answer: 0 },
@@ -82,7 +86,6 @@ const quizData = [
 let currentQuestion = 0;
 let selectedOption = null;
 let score = 0;
-
 
 // ------------------ ЗАГРУЗКА ВОПРОСА ------------------
 function loadQuestion() {
@@ -114,7 +117,6 @@ function loadQuestion() {
   container.appendChild(card);
 }
 
-
 // ------------------ ВЫБОР ВАРИАНТА ------------------
 function selectOption(button, index) {
   document.querySelectorAll(".option").forEach(btn => {
@@ -125,7 +127,6 @@ function selectOption(button, index) {
   selectedOption = index;
   document.getElementById("nextBtn").disabled = false;
 }
-
 
 // ------------------ НАЖАТИЕ "СЛЕДУЮЩИЙ" ------------------
 document.getElementById("nextBtn").addEventListener("click", () => {
@@ -142,7 +143,6 @@ document.getElementById("nextBtn").addEventListener("click", () => {
   }
 });
 
-
 // ------------------ ПРОГРЕСС-БАР ------------------
 function updateProgress() {
   const percent = (currentQuestion / quizData.length) * 100;
@@ -152,23 +152,21 @@ function updateProgress() {
     `Вопрос ${currentQuestion + 1} из ${quizData.length}`;
 }
 
-
 // ------------------ ПОКАЗ РЕЗУЛЬТАТА ------------------
 function showResult() {
-  const points = score * 10;
+  const earnedPoints = score * 10; // 10 баллов за правильный ответ
+  addPoints(earnedPoints); // начисляем в localStorage
 
   document.getElementById("scoreText").textContent =
-    `Вы правильно ответили на ${score} из ${quizData.length} вопросов.\nВы получили ${points} баллов!`;
+    `Вы правильно ответили на ${score} из ${quizData.length} вопросов.\nВы получили ${earnedPoints} баллов!`;
 
   const popup = document.getElementById("resultPopup");
   popup.classList.remove("hidden");
   popup.classList.add("flex");
 
-  // Делаем прогресс 100%
   document.getElementById("progressBar").style.width = "100%";
   document.getElementById("progressText").textContent = "Готово!";
 }
-
 
 // ------------------ СТАРТ ------------------
 loadQuestion();

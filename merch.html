@@ -12,21 +12,19 @@
 <!-- Header -->
 <header class="p-4 bg-white shadow flex items-center justify-between">
   <div class="flex items-center space-x-2">
-    <img src="x5logo.png"
-         alt="logo" class="h-6">
+    <img src="x5logo.png" alt="logo" class="h-6">
   </div>
 
   <div class="flex items-center space-x-2">
     <span class="text-sm font-medium">Студент</span>
     <span class="w-2 h-2 bg-green-500 rounded-full"></span>
 
-    <div class="px-3 py-1 bg-gray-100 rounded-full text-sm font-medium">
-      120 баллов
+    <!-- Актуальные баллы -->
+    <div class="px-3 py-1 bg-gray-100 rounded-full text-sm font-medium" id="pointsDisplay">
+      0 баллов
     </div>
   </div>
 </header>
-
-
 
 <!-- Main -->
 <main class="flex-1 p-4 pb-24">
@@ -81,14 +79,12 @@
   </div>
 </main>
 
-
 <!-- Footer -->
 <footer class="fixed bottom-0 left-0 right-0 bg-green-600 text-white p-4 flex justify-around text-sm">
   <a href="index.html" class="font-medium">Главная</a>
   <a href="merch.html" class="font-medium">Каталог</a>
   <a href="info.html" class="font-medium">Информация</a>
 </footer>
-
 
 <!-- POPUP: Получить -->
 <div id="merchPopup" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4">
@@ -112,7 +108,6 @@
   </div>
 </div>
 
-
 <!-- JS -->
 <script>
 function generateToken() {
@@ -128,6 +123,11 @@ function openMerchPopup(name) {
 function closeMerchPopup() {
   document.getElementById('merchPopup').classList.add('hidden');
 }
+
+// ------------------ Актуальные баллы ------------------
+let points = Number(localStorage.getItem('x5Points')) || 0;
+const pointsDisplay = document.getElementById('pointsDisplay');
+pointsDisplay.textContent = points + " баллов";
 </script>
 
 </body>
