@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Главная — X5 Tech</title>
 <script src="https://cdn.tailwindcss.com"></script>
+<style>
+  .custom-green { background-color: #5FAF2D; }
+  .custom-green-border { border-color: #5FAF2D; }
+</style>
 </head>
 
 <body class="bg-white min-h-screen flex flex-col font-sans">
@@ -17,7 +21,7 @@
 
   <div class="flex items-center space-x-2">
     <span class="text-sm font-medium" id="usernameDisplay">Студент</span>
-    <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+    <span class="w-2 h-2 custom-green rounded-full"></span>
 
     <!-- Баллы -->
     <div class="px-3 py-1 bg-gray-100 rounded-full text-sm font-medium" id="pointsDisplay">
@@ -32,7 +36,7 @@
 
   <div class="space-y-4">
     <!-- Card 1 -->
-    <div class="border-2 border-green-600 rounded-xl p-4 space-y-3">
+    <div class="border-2 custom-green-border rounded-xl p-4 space-y-3">
       <h2 class="text-lg font-semibold">Стенд данных</h2>
       <p class="text-gray-700 text-sm">Познакомьтесь с крупными данными и инструментами X5 Tech.</p>
 
@@ -42,14 +46,14 @@
       </button>
 
       <a href="quiz.html">
-        <button class="w-full bg-green-600 text-white py-2 rounded-md text-sm mt-2">
+        <button class="w-full custom-green text-white py-2 rounded-md text-sm mt-2">
           Пройти квиз
         </button>
       </a>
     </div>
 
     <!-- Card 2 -->
-    <div class="border-2 border-green-600 rounded-xl p-4 space-y-3">
+    <div class="border-2 custom-green-border rounded-xl p-4 space-y-3">
       <h2 class="text-lg font-semibold">AI & ML Стенд</h2>
       <p class="text-gray-700 text-sm">Как X5 использует машинное обучение и нейросети.</p>
 
@@ -59,14 +63,14 @@
       </button>
 
       <a href="quiz.html">
-        <button class="w-full bg-green-600 text-white py-2 rounded-md text-sm mt-2">
+        <button class="w-full custom-green text-white py-2 rounded-md text-sm mt-2">
           Пройти квиз
         </button>
       </a>
     </div>
 
     <!-- Card 3 -->
-    <div class="border-2 border-green-600 rounded-xl p-4 space-y-3">
+    <div class="border-2 custom-green-border rounded-xl p-4 space-y-3">
       <h2 class="text-lg font-semibold">Стенд логистики</h2>
       <p class="text-gray-700 text-sm">Технологии и автоматизация цепочек поставок.</p>
 
@@ -76,7 +80,7 @@
       </button>
 
       <a href="quiz.html">
-        <button class="w-full bg-green-600 text-white py-2 rounded-md text-sm mt-2">
+        <button class="w-full custom-green text-white py-2 rounded-md text-sm mt-2">
           Пройти квиз
         </button>
       </a>
@@ -85,11 +89,27 @@
 </main>
 
 <!-- Footer -->
-<footer class="fixed bottom-0 left-0 right-0 bg-green-600 text-white p-4 flex justify-around text-sm">
-  <a href="index.html" class="font-medium">Главная</a>
-  <a href="merch.html" class="font-medium">Каталог</a>
-  <a href="info.html" class="font-medium">Информация</a>
+<footer class="fixed bottom-0 left-0 right-0 custom-green text-white h-12 flex">
+  <!-- Главная -->
+  <div class="flex-1 flex items-center justify-center">
+    <a href="index.html" class="font-medium">Главная</a>
+  </div>
+
+  <!-- Каталог с линией слева -->
+  <div class="flex-1 flex items-center justify-center border-l border-white">
+    <a href="merch.html" class="font-medium px-3">Каталог</a>
+  </div>
+
+  <!-- Информация с линией слева -->
+  <div class="flex-1 flex items-center justify-center border-l border-white">
+    <a href="info.html" class="font-medium px-3">Информация</a>
+  </div>
 </footer>
+
+
+
+
+
 
 <!-- POPUP: Подробнее -->
 <div id="standPopup" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center p-4">
@@ -109,7 +129,7 @@
     <h2 class="text-xl font-bold">Привет!</h2>
     <p>Введите ваш ник в Telegram:</p>
     <input type="text" id="usernameInput" class="w-full border rounded-md p-2" placeholder="@ваш_ник">
-    <button id="saveUsernameBtn" class="w-full bg-green-600 text-white py-2 rounded-md">Сохранить</button>
+    <button id="saveUsernameBtn" class="w-full custom-green text-white py-2 rounded-md">Сохранить</button>
   </div>
 </div>
 

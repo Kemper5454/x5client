@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Каталог мерча — X5 Tech</title>
 <script src="https://cdn.tailwindcss.com"></script>
+<style>
+  .custom-green { background-color: #5FAF2D; }
+  .custom-green-border { border-color: #5FAF2D; }
+  .custom-green-text { color: #5FAF2D; }
+</style>
 </head>
 
 <body class="bg-white min-h-screen flex flex-col font-sans">
@@ -17,7 +22,7 @@
 
   <div class="flex items-center space-x-2">
     <span class="text-sm font-medium" id="usernameDisplay">Студент</span>
-    <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+    <span class="w-2 h-2 custom-green rounded-full"></span>
 
     <!-- Актуальные баллы -->
     <div class="px-3 py-1 bg-gray-100 rounded-full text-sm font-medium" id="pointsDisplay">
@@ -33,44 +38,44 @@
   <div class="grid grid-cols-2 gap-4">
 
     <!-- Item 1 -->
-    <div class="border-2 border-green-600 rounded-xl p-3 space-y-2">
+    <div class="border-2 custom-green-border rounded-xl p-3 space-y-2">
       <div class="w-full h-20 bg-gray-200 rounded-md"></div>
       <h2 class="text-sm font-semibold">Футболка</h2>
       <p class="text-xs text-gray-700">10 баллов</p>
-      <button class="w-full bg-green-600 text-white py-1.5 rounded-md text-xs"
+      <button class="w-full custom-green text-white py-1.5 rounded-md text-xs"
         onclick="redeemMerch('Фирменная футболка', 10)">
         Получить
       </button>
     </div>
 
     <!-- Item 2 -->
-    <div class="border-2 border-green-600 rounded-xl p-3 space-y-2">
+    <div class="border-2 custom-green-border rounded-xl p-3 space-y-2">
       <div class="w-full h-20 bg-gray-200 rounded-md"></div>
       <h2 class="text-sm font-semibold">Эко-бутылка</h2>
       <p class="text-xs text-gray-700">20 баллов</p>
-      <button class="w-full bg-green-600 text-white py-1.5 rounded-md text-xs"
+      <button class="w-full custom-green text-white py-1.5 rounded-md text-xs"
         onclick="redeemMerch('Эко-бутылка', 20)">
         Получить
       </button>
     </div>
 
     <!-- Item 3 -->
-    <div class="border-2 border-green-600 rounded-xl p-3 space-y-2">
+    <div class="border-2 custom-green-border rounded-xl p-3 space-y-2">
       <div class="w-full h-20 bg-gray-200 rounded-md"></div>
       <h2 class="text-sm font-semibold">Cтикеры</h2>
       <p class="text-xs text-gray-700">10 баллов</p>
-      <button class="w-full bg-green-600 text-white py-1.5 rounded-md text-xs"
+      <button class="w-full custom-green text-white py-1.5 rounded-md text-xs"
         onclick="redeemMerch('Набор стикеров', 10)">
         Получить
       </button>
     </div>
 
     <!-- Item 4 -->
-    <div class="border-2 border-green-600 rounded-xl p-3 space-y-2">
+    <div class="border-2 custom-green-border rounded-xl p-3 space-y-2">
       <div class="w-full h-20 bg-gray-200 rounded-md"></div>
       <h2 class="text-sm font-semibold">Шоппер X5</h2>
       <p class="text-xs text-gray-700">30 баллов</p>
-      <button class="w-full bg-green-600 text-white py-1.5 rounded-md text-xs"
+      <button class="w-full custom-green text-white py-1.5 rounded-md text-xs"
         onclick="redeemMerch('Шоппер X5', 30)">
         Получить
       </button>
@@ -80,10 +85,21 @@
 </main>
 
 <!-- Footer -->
-<footer class="fixed bottom-0 left-0 right-0 bg-green-600 text-white p-4 flex justify-around text-sm">
-  <a href="index.html" class="font-medium">Главная</a>
-  <a href="merch.html" class="font-medium">Каталог</a>
-  <a href="info.html" class="font-medium">Информация</a>
+<footer class="fixed bottom-0 left-0 right-0 custom-green text-white h-12 flex">
+  <!-- Главная -->
+  <div class="flex-1 flex items-center justify-center">
+    <a href="index.html" class="font-medium">Главная</a>
+  </div>
+
+  <!-- Каталог с линией слева -->
+  <div class="flex-1 flex items-center justify-center border-l border-white">
+    <a href="merch.html" class="font-medium px-3">Каталог</a>
+  </div>
+
+  <!-- Информация с линией слева -->
+  <div class="flex-1 flex items-center justify-center border-l border-white">
+    <a href="info.html" class="font-medium px-3">Информация</a>
+  </div>
 </footer>
 
 <!-- POPUP: Получить или ошибка -->
@@ -98,11 +114,11 @@
 
     <div id="tokenContainer">
       <p class="text-sm text-gray-700 mb-1">Ваш уникальный токен:</p>
-      <p id="merchToken" class="font-mono text-lg font-semibold text-green-600"></p>
+      <p id="merchToken" class="font-mono text-lg font-semibold custom-green-text"></p>
     </div>
 
     <button onclick="closeMerchPopup()"
-      class="w-full bg-green-600 text-white py-2 rounded-md">
+      class="w-full custom-green text-white py-2 rounded-md">
       Закрыть
     </button>
   </div>

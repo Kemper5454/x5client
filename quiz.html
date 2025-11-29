@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Квиз — X5 Tech</title>
 <script src="https://cdn.tailwindcss.com"></script>
+<style>
+  .custom-green { background-color: #5FAF2D; }
+  .custom-green-border { border-color: #5FAF2D; }
+  .custom-green-bg-light { background-color: #E2F0C7; } /* лёгкий фон для выбранного варианта */
+</style>
 </head>
 
 <body class="bg-white min-h-screen flex flex-col font-sans">
@@ -17,7 +22,7 @@
 
   <div class="flex items-center space-x-2">
     <span class="text-sm font-medium" id="usernameDisplay">Студент</span>
-    <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+    <span class="w-2 h-2 custom-green rounded-full"></span>
     <div class="px-3 py-1 bg-gray-100 rounded-full text-sm font-medium" id="pointsDisplay">
       0 баллов
     </div>
@@ -30,24 +35,35 @@
 
   <!-- PROGRESS BAR -->
   <div class="w-full bg-gray-200 rounded-full h-3 mb-4">
-    <div id="progressBar" class="bg-green-600 h-3 rounded-full transition-all duration-300" style="width: 0%"></div>
+    <div id="progressBar" class="custom-green-bg-light h-3 rounded-full transition-all duration-300" style="width: 0%"></div>
   </div>
   <p id="progressText" class="text-sm text-gray-600 mb-4">Вопрос 1 из …</p>
 
   <div id="quizContainer" class="space-y-4"></div>
 
   <button id="nextBtn"
-          class="w-full bg-green-600 text-white py-3 rounded-md font-medium mt-4 disabled:opacity-50"
+          class="w-full custom-green text-white py-3 rounded-md font-medium mt-4 disabled:opacity-50"
           disabled>
     Следующий
   </button>
 </main>
 
 <!-- FOOTER -->
-<footer class="fixed bottom-0 left-0 right-0 bg-green-600 text-white p-4 flex justify-around text-sm">
-  <a href="index.html" class="font-medium">Главная</a>
-  <a href="merch.html" class="font-medium">Каталог</a>
-  <a href="info.html" class="font-medium">Информация</a>
+<footer class="fixed bottom-0 left-0 right-0 custom-green text-white h-12 flex">
+  <!-- Главная -->
+  <div class="flex-1 flex items-center justify-center">
+    <a href="index.html" class="font-medium">Главная</a>
+  </div>
+
+  <!-- Каталог с линией слева -->
+  <div class="flex-1 flex items-center justify-center border-l border-white">
+    <a href="merch.html" class="font-medium px-3">Каталог</a>
+  </div>
+
+  <!-- Информация с линией слева -->
+  <div class="flex-1 flex items-center justify-center border-l border-white">
+    <a href="info.html" class="font-medium px-3">Информация</a>
+  </div>
 </footer>
 
 <!-- RESULT POPUP -->
@@ -56,7 +72,7 @@
     <h2 class="text-xl font-bold mb-2">Результат</h2>
     <p id="scoreText" class="text-gray-700 mb-4"></p>
 
-    <a href="index.html" class="block w-full bg-green-600 text-white py-2 rounded-md font-medium">
+    <a href="index.html" class="block w-full custom-green text-white py-2 rounded-md font-medium">
       На главную
     </a>
   </div>
@@ -100,7 +116,7 @@ function loadQuestion() {
   container.innerHTML = "";
 
   const card = document.createElement("div");
-  card.className = "border-2 border-green-600 rounded-xl p-4 space-y-3";
+  card.className = "border-2 custom-green-border rounded-xl p-4 space-y-3";
 
   const title = document.createElement("h2");
   title.className = "text-lg font-semibold";
@@ -121,10 +137,10 @@ function loadQuestion() {
 // ------------------ ВЫБОР ВАРИАНТА ------------------
 function selectOption(button, index) {
   document.querySelectorAll(".option").forEach(btn => {
-    btn.classList.remove("border-green-600", "bg-green-50");
+    btn.classList.remove("custom-green-border", "custom-green-bg-light");
   });
 
-  button.classList.add("border-green-600", "bg-green-50");
+  button.classList.add("custom-green-border", "custom-green-bg-light");
   selectedOption = index;
   document.getElementById("nextBtn").disabled = false;
 }
