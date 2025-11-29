@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Квиз — Стенд логистики X5 Tech</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  .custom-green { background-color: #5FAF2D; }
+  .custom-green-border { border-color: #5FAF2D; }
+  .custom-green-bg-light { background-color: #E2F0C7; } /* лёгкий фон для выбранного варианта */
+</style>
+</head>
+
+<body class="bg-white min-h-screen flex flex-col font-sans">
+
+<!-- HEADER -->
+<header class="p-4 bg-white shadow flex items-center justify-between">
+  <div class="flex items-center space-x-2">
+    <img src="x5logo.png" alt="logo" class="h-6">
+  </div>
+
+  <div class="flex items-center space-x-2">
+    <span class="text-sm font-medium" id="usernameDisplay">Студент</span>
+    <span class="w-2 h-2 custom-green rounded-full"></span>
+    <div class="px-3 py-1 bg-gray-100 rounded-full text-sm font-medium" id="pointsDisplay">
+      0 баллов
+    </div>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main class="flex-1 p-4 pb-24">
+  <h1 class="text-2xl font-semibold mb-4">Квиз — Стенд логистики</h1>
+
+  <!-- PROGRESS BAR -->
+  <div class="w-full bg-gray-200 rounded-full h-3 mb-4">
+    <div id="progressBar" class="custom-green-bg-light h-3 rounded-full transition-all duration-300" style="width: 0%"></div>
+  </div>
+  <p id="progressText" class="text-sm text-gray-600 mb-4">Вопрос 1 из …</p>
+
+  <div id="quizContainer" class="space-y-4"></div>
+
+  <button id="nextBtn"
+          class="w-full custom-green text-white py-3 rounded-md font-medium mt-4 disabled:opacity-50"
+          disabled>
+    Следующий
+  </button>
+</main>
+
+<!-- FOOTER -->
+<footer class="fixed bottom-0 left-0 right-0 custom-green text-white h-12 flex">
+  <div class="flex-1 flex items-center justify-center">
+    <a href="index.html" class="font-medium">Главная</a>
+  </div>
+
+  <div class="flex-1 flex items-center justify-center border-l border-white">
+    <a href="merch.html" class="font-medium px-3">Каталог</a>
+  </div>
+
+  <div class="flex-1 flex items-center justify-center border-l border-white">
+    <a href="info.html" class="font-medium px-3">Информация</a>
+  </div>
+</footer>
+
+<!-- RESULT POPUP -->
+<div id="resultPopup" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center p-4">
+  <div class="bg-white rounded-xl shadow-xl p-5 w-full max-w-sm text-center">
+    <h2 class="text-xl font-bold mb-2">Результат</h2>
+    <p id="scoreText" class="text-gray-700 mb-4"></p>
+
+    <a href="index.html" class="block w-full custom-green text-white py-2 rounded-md font-medium">
+      На главную
+    </a>
+  </div>
+</div>
+
+<script>
+// ------------------ НИКНЕЙМ ------------------
+const savedUsername = localStorage.getItem('x5Username') || "Студент";
+document.getElementById('usernameDisplay').textContent = savedUsername;
+
+// ------------------ БАЛЛЫ ------------------
+let points = Number(localStorage.getItem('x5Points')) || 0;
+const pointsDisplay = document.getElementById('pointsDisplay');
+pointsDisplay.textContent = points + " баллов";
+
+function addPoints(amount) {
+  points += amount;
+  localStorage.setItem('x5Points', points);
+  pointsDisplay.textContent = points + " баллов";
+}
+
+// ------------------ КВИЗ ------------------
+const quizData = [
+  { 
+    question: "Что такое WMS (Warehouse Management System)?", 
+    options: [
+      "Система управления складом", 
+      "Программа для курьерской доставки", 
+      "Инструмент визуализации данных", 
+      "Сервис для управления зарплатой"
+    ], 
+    answer: 0 
+  },
+  { 
+    question: "Как называется процесс доставки товаров от склада до магазина?", 
+    options: [
+      "Логистика", 
+      "ETL", 
+      "Big Data", 
+      "Front-end"
+    ], 
+    answer: 0 
+  },
+  { 
+    question: "Что такое цепочка поставок (Supply Chain)?", 
+    options: [
+      "Последовательность процессов от производства до клиента", 
+      "База данных клиентов", 
+      "Система аналитики продаж", 
+      "План маркетинговых акций"
+    ], 
+    answer: 0 
+  },
+  { 
+    question: "Какой инструмент X5 Tech может помочь автоматизировать маршруты доставки?", 
+    options: [
+      "Система маршрутизации и оптимизации", 
+      "Excel", 
+      "Photoshop", 
+      "PostgreSQL"
+    ], 
+    answer: 0 
+  },
+  { 
+    question: "Для чего нужна аналитика в логистике X5 Tech?", 
+    options: [
+      "Для оптимизации запасов и сокращения времени доставки", 
+      "Для дизайна упаковки", 
+      "Для создания сайтов", 
+      "Для редактирования изображений"
+    ], 
+    answer: 0 
+  }
+];
+
+let currentQuestion = 0;
+let selectedOption = null;
+let score = 0;
+
+// ------------------ ЗАГРУЗКА ВОПРОСА ------------------
+function loadQuestion() {
+  const q = quizData[currentQuestion];
+  updateProgress();
+
+  const container = document.getElementById('quizContainer');
+  container.innerHTML = "";
+
+  const card = document.createElement("div");
+  card.className = "border-2 custom-green-border rounded-xl p-4 space-y-3";
+
+  const title = document.createElement("h2");
+  title.className = "text-lg font-semibold";
+  title.textContent = q.question;
+  card.appendChild(title);
+
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement("button");
+    btn.className = "option w-full border rounded-md py-2 px-2 text-left";
+    btn.textContent = opt;
+    btn.onclick = () => selectOption(btn, i);
+    card.appendChild(btn);
+  });
+
+  container.appendChild(card);
+}
+
+// ------------------ ВЫБОР ВАРИАНТА ------------------
+function selectOption(button, index) {
+  document.querySelectorAll(".option").forEach(btn => {
+    btn.classList.remove("custom-green-border", "custom-green-bg-light");
+  });
+
+  button.classList.add("custom-green-border", "custom-green-bg-light");
+  selectedOption = index;
+  document.getElementById("nextBtn").disabled = false;
+}
+
+// ------------------ НАЖАТИЕ "СЛЕДУЮЩИЙ" ------------------
+document.getElementById("nextBtn").addEventListener("click", () => {
+  if (selectedOption === quizData[currentQuestion].answer) score++;
+
+  currentQuestion++;
+  selectedOption = null;
+
+  if (currentQuestion < quizData.length) {
+    document.getElementById("nextBtn").disabled = true;
+    loadQuestion();
+  } else {
+    showResult();
+  }
+});
+
+// ------------------ ПРОГРЕСС-БАР ------------------
+function updateProgress() {
+  const percent = (currentQuestion / quizData.length) * 100;
+  document.getElementById("progressBar").style.width = percent + "%";
+  document.getElementById("progressText").textContent =
+    `Вопрос ${currentQuestion + 1} из ${quizData.length}`;
+}
+
+// ------------------ ПОКАЗ РЕЗУЛЬТАТА ------------------
+function showResult() {
+  const earnedPoints = score * 10; // 10 баллов за правильный ответ
+  addPoints(earnedPoints);
+
+  document.getElementById("scoreText").textContent =
+    `Вы правильно ответили на ${score} из ${quizData.length} вопросов.\nВы получили ${earnedPoints} баллов!`;
+
+  const popup = document.getElementById("resultPopup");
+  popup.classList.remove("hidden");
+  popup.classList.add("flex");
+
+  document.getElementById("progressBar").style.width = "100%";
+  document.getElementById("progressText").textContent = "Готово!";
+}
+
+// ------------------ СТАРТ ------------------
+loadQuestion();
+</script>
+
+</body>
+</html>
