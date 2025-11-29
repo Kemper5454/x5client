@@ -14,7 +14,7 @@
   </div>
 
   <div class="flex items-center space-x-2">
-    <span class="text-sm font-medium">Студент</span>
+    <span class="text-sm font-medium" id="usernameDisplay">Студент</span>
     <span class="w-2 h-2 bg-green-500 rounded-full"></span>
 
     <!-- Актуальные баллы -->
@@ -58,9 +58,13 @@
   <a href="info.html" class="font-medium">Информация</a>
 </footer>
 
-<!-- JS для актуальных баллов -->
+<!-- JS для синхронизации никнейма и баллов -->
 <script>
-// Получаем баллы из localStorage и обновляем отображение
+// ------------------ Никнейм ------------------
+const savedUsername = localStorage.getItem('x5Username') || "Студент";
+document.getElementById('usernameDisplay').textContent = savedUsername;
+
+// ------------------ Баллы ------------------
 let points = Number(localStorage.getItem('x5Points')) || 0;
 const pointsDisplay = document.getElementById('pointsDisplay');
 pointsDisplay.textContent = points + " баллов";

@@ -16,7 +16,7 @@
   </div>
 
   <div class="flex items-center space-x-2">
-    <span class="text-sm font-medium">Студент</span>
+    <span class="text-sm font-medium" id="usernameDisplay">Студент</span>
     <span class="w-2 h-2 bg-green-500 rounded-full"></span>
 
     <!-- Баллы -->
@@ -30,9 +30,7 @@
 <main class="flex-1 p-4 pb-24">
   <h1 class="text-2xl font-semibold mb-4">Доступные стенды</h1>
 
-  <!-- Cards -->
   <div class="space-y-4">
-
     <!-- Card 1 -->
     <div class="border-2 border-green-600 rounded-xl p-4 space-y-3">
       <h2 class="text-lg font-semibold">Стенд данных</h2>
@@ -83,7 +81,6 @@
         </button>
       </a>
     </div>
-
   </div>
 </main>
 
@@ -106,6 +103,16 @@
   </div>
 </div>
 
+<!-- POPUP: Регистрация -->
+<div id="registerPopup" class="fixed inset-0 bg-black/60 flex items-center justify-center p-4 hidden">
+  <div class="bg-white rounded-xl p-6 w-full max-w-sm space-y-4 text-center">
+    <h2 class="text-xl font-bold">Привет!</h2>
+    <p>Введите ваш ник в Telegram:</p>
+    <input type="text" id="usernameInput" class="w-full border rounded-md p-2" placeholder="@ваш_ник">
+    <button id="saveUsernameBtn" class="w-full bg-green-600 text-white py-2 rounded-md">Сохранить</button>
+  </div>
+</div>
+
 <!-- JS -->
 <script>
   // ------------------ POPUP ------------------
@@ -125,19 +132,37 @@
   }
 
   // ------------------ БАЛЛЫ ------------------
-  // Получаем текущие баллы из localStorage или ставим 0
   let points = Number(localStorage.getItem('x5Points')) || 0;
-
-  // Обновляем отображение
   const pointsDisplay = document.getElementById('pointsDisplay');
   pointsDisplay.textContent = points + " баллов";
 
-  // Функция для добавления баллов (будет использоваться на quiz.html)
   function addPoints(amount) {
     points += amount;
     localStorage.setItem('x5Points', points);
     pointsDisplay.textContent = points + " баллов";
   }
+
+  // ------------------ МИНИ-РЕГИСТРАЦИЯ ------------------
+  const username = localStorage.getItem('x5Username');
+  const registerPopup = document.getElementById('registerPopup');
+  const usernameDisplay = document.getElementById('usernameDisplay');
+
+  if (!username) {
+    registerPopup.classList.remove('hidden');
+  } else {
+    usernameDisplay.textContent = username;
+  }
+
+  document.getElementById('saveUsernameBtn').addEventListener('click', () => {
+    const value = document.getElementById('usernameInput').value.trim();
+    if (value) {
+      localStorage.setItem('x5Username', value);
+      usernameDisplay.textContent = value;
+      registerPopup.classList.add('hidden');
+    } else {
+      alert("Введите ваш ник в Telegram!");
+    }
+  });
 </script>
 
 </body>
